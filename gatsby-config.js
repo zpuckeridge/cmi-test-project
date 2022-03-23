@@ -1,7 +1,18 @@
 module.exports = {
   siteMetadata: {
-    title: `new`,
-    siteUrl: `https://www.yourdomain.tld`,
+    title: `Mammoths - A Deep Dive`,
+    siteUrl: `https://cmi.zacchary.me/`,
   },
-  plugins: [],
+  plugins: [
+    {
+      resolve: '@chakra-ui/gatsby-plugin',
+      options: {
+        resetCSS: true,
+        isUsingColorMode: true,
+      },
+    },
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+  ],
 }
