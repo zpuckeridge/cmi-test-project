@@ -4,7 +4,7 @@ import { StaticImage } from "gatsby-plugin-image";
 
 import { useForm } from "react-hook-form";
 
-import UpdateNotice from "../components/updateNotice";
+import Warning from "../components/warning";
 import Output from "../components/output";
 
 import {
@@ -22,7 +22,6 @@ import {
   InputGroup,
   InputLeftAddon,
   Text,
-  FormErrorMessage,
 } from "@chakra-ui/react";
 
 export default function Form() {
@@ -30,16 +29,11 @@ export default function Form() {
   const [data, setData] = useState();
 
   // use react-hook-form to validate form
-  const { register, handleSubmit, errors, formState } = useForm({
-    mode: "onBlur",
-    reValidateMode: "onChange",
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      date: "",
-    },
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   // on submit output data to console and display
   const onSubmit = (data) => {
@@ -47,7 +41,7 @@ export default function Form() {
     toast({
       title: "Form submitted!",
       status: "success",
-      duration: 9000,
+      duration: 5000,
       isClosable: true,
     });
     setData(data);
@@ -102,6 +96,9 @@ export default function Form() {
                     maxLength: 80,
                   })}
                 />
+                {errors.fullname && (
+                  <Warning title="Please enter your full name." />
+                )}
               </FormControl>
 
               <FormControl isRequired marginTop="1rem">
@@ -114,6 +111,9 @@ export default function Form() {
                     pattern: /^\S+@\S+$/i,
                   })}
                 />
+                {errors.email && (
+                  <Warning title="Please enter a valid email." />
+                )}
               </FormControl>
 
               <FormControl isRequired marginTop="1rem">
@@ -130,6 +130,9 @@ export default function Form() {
                     })}
                   />
                 </InputGroup>
+                {errors.phone && (
+                  <Warning title="Please enter a valid phone number." />
+                )}
               </FormControl>
 
               <FormControl isRequired marginTop="1rem">
@@ -149,7 +152,6 @@ export default function Form() {
 
               <Button
                 type="submit"
-                isLoading={false}
                 marginTop="1rem"
                 _hover={{
                   bg: "teal.500",
