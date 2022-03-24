@@ -4,7 +4,7 @@ import { StaticImage } from "gatsby-plugin-image";
 
 import { useForm } from "react-hook-form";
 
-import UpdateNotice from "./updateNotice";
+import UpdateNotice from "../components/updateNotice";
 import Output from "../components/output";
 
 import {
@@ -92,7 +92,7 @@ export default function Form() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Flex direction="column">
               <FormControl isRequired>
-                <FormLabel htmlFor="name">Full Name</FormLabel>
+                <FormLabel htmlFor="fullname">Full Name</FormLabel>
                 <Input
                   type="text"
                   placeholder="Full Name"
@@ -102,7 +102,6 @@ export default function Form() {
                     maxLength: 80,
                   })}
                 />
-                {errors.name && <UpdateNotice title={errors.name.message} />}
               </FormControl>
 
               <FormControl isRequired marginTop="1rem">
@@ -112,11 +111,9 @@ export default function Form() {
                   placeholder="Email"
                   {...register("email", {
                     required: "Please enter a valid email.",
-                    minLength: 3,
-                    maxLength: 80,
+                    pattern: /^\S+@\S+$/i,
                   })}
                 />
-                {errors.email && <UpdateNotice title={errors.email.message} />}
               </FormControl>
 
               <FormControl isRequired marginTop="1rem">
@@ -126,21 +123,24 @@ export default function Form() {
                   <Input
                     type="number"
                     placeholder="Phone number"
-                    {...register("email", {
+                    {...register("phone", {
                       required: "Please enter a valid phone number.",
                       minLength: 10,
                       maxLength: 12,
                     })}
                   />
-                  {errors.phone && (
-                    <UpdateNotice title={errors.phone.message} />
-                  )}
                 </InputGroup>
               </FormControl>
 
               <FormControl isRequired marginTop="1rem">
                 <FormLabel htmlFor="date">Event Date</FormLabel>
-                <Select id="date" placeholder="Choose your preferred date...">
+                <Select
+                  id="date"
+                  placeholder="Choose your preferred date..."
+                  {...register("date", {
+                    required: "Please enter your preferred date.",
+                  })}
+                >
                   <option>Tuesday, May 24th, 2022</option>
                   <option>Wednesday, May 25th, 2022</option>
                   <option>Thursday, May 26th, 2022</option>
@@ -162,7 +162,7 @@ export default function Form() {
           </form>
           {data && (
             <Output
-              name={data.name}
+              name={data.fullname}
               email={data.email}
               phone={data.phone}
               date={data.date}

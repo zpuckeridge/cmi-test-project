@@ -1,6 +1,6 @@
 import {
   Heading,
-  HStack,
+  VStack,
   Stack,
   Stat,
   StatHelpText,
@@ -19,14 +19,14 @@ export default function Output(props) {
         borderWidth="3px"
         borderRadius="md"
         direction="column"
-        align="flex-start"
+        align="center"
       >
-        <HStack>
+        <VStack>
           <StatLabel>Name: {props.name}</StatLabel>
           <StatLabel>Email: {props.email}</StatLabel>
           <StatLabel>Phone: {props.phone}</StatLabel>
-        </HStack>
-        <StatHelpText>Password: {props.Password}</StatHelpText>
+          <StatLabel>Date: {props.date}</StatLabel>
+        </VStack>
       </Stack>
     </Stat>
   );
