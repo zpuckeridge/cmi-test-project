@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { StaticImage } from "gatsby-plugin-image";
 
+import axios from "axios";
+
 import { useForm } from "react-hook-form";
 
 import Warning from "../components/warning";
@@ -35,16 +37,27 @@ export default function Form() {
     formState: { errors },
   } = useForm();
 
-  // on submit output data to console and display
+  // on submit output data
   const onSubmit = (data) => {
     console.log(data);
+
     toast({
       title: "Form submitted!",
       status: "success",
       duration: 5000,
       isClosable: true,
     });
+
     setData(data);
+    // post form data to getform
+    axios
+      .post("https://getform.io/f/5a0434a8-22e6-4236-a536-58afab3a4b26", data)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -83,12 +96,17 @@ export default function Form() {
           borderColor={useColorModeValue("gray.200", "gray.700")}
           bg={useColorModeValue("white", "gray.700")}
         >
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            method="POST"
+            action="https://getform.io/f/5a0434a8-22e6-4236-a536-58afab3a4b26"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <Flex direction="column">
               <FormControl isRequired>
                 <FormLabel htmlFor="fullname">Full Name</FormLabel>
                 <Input
                   type="text"
+                  name="fullname"
                   placeholder="Full Name"
                   {...register("fullname", {
                     required: "Please enter your full name",
@@ -105,6 +123,7 @@ export default function Form() {
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <Input
                   type="text"
+                  name="email"
                   placeholder="Email"
                   {...register("email", {
                     required: "Please enter a valid email.",
@@ -122,6 +141,7 @@ export default function Form() {
                   <InputLeftAddon children="+61" />
                   <Input
                     type="number"
+                    name="phone"
                     placeholder="Phone number"
                     {...register("phone", {
                       required: "Please enter a valid phone number.",
@@ -138,7 +158,8 @@ export default function Form() {
               <FormControl isRequired marginTop="1rem">
                 <FormLabel htmlFor="date">Event Date</FormLabel>
                 <Select
-                  id="date"
+                  type="date"
+                  name="date"
                   placeholder="Choose your preferred date..."
                   {...register("date", {
                     required: "Please enter your preferred date.",
