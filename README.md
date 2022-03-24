@@ -1,7 +1,11 @@
-# Basic Event Form using Gatsby, Chakra and Getform
+# Basic Event Form
 
-This is a basic form with validation built as a programming test for Creation Ministries.
+This is a basic form with validation built as a programming test.
 
-The project leverages Gatsby for fast static site generation, Chakra for minimal and simplistic UI, react-hook-form for data validation and Getform for submitting/recording data.
+## What is it built with?
 
-It also uses the Gatsby GitHub Pages integration which is what currently is hosting the site.
+- Gatsby.JS (static web generator)
+- Chakra-UI (modular UI component library)
+- react-hook-form (form validation)
+- GetForm (used to submit/record data)
+- GitHub Pages (hosting static files)
