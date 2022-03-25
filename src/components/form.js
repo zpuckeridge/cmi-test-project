@@ -158,7 +158,6 @@ export default function Form() {
               <FormControl isRequired marginTop="1rem">
                 <FormLabel htmlFor="date">Event Date</FormLabel>
                 <Select
-                  type="date"
                   name="date"
                   placeholder="Choose your preferred date..."
                   {...register("date", {
